@@ -16,6 +16,7 @@ var RELEASE_NOTES_LABEL_XPATH = 'div.expandable-text>label:contains("Release Not
 var STATUS_XPATH = 'div.what-fields>div.text>label:contains("Status:")';
 var DONE = 'Done';
 var IN_PROGRESS = 'In Progress';
+var ACCEPTED = 'Accepted';
 
 function dataLoaded(d) {
     d.each(function(i,l) {
@@ -27,9 +28,9 @@ function dataLoaded(d) {
                 var status = $(data).find(STATUS_XPATH).parent().find('.value').text();
                 var parentItem = $(l).find('.bottom-content').parent();
                 var bgColor = "";
-                if (status === DONE) {
+                if (status === DONE || status === ACCEPTED) {
                     bgColor = ( releaseNotes === "" ) ? COMPLETE_MISSING_COMMENTS_COLOUR : COMPLETE_WITH_COMMENTS_COLOUR;
-                } else if (status === IN_PROGRESS) {
+               } else if (status === IN_PROGRESS) {
                     bgColor = ( releaseNotes === "" ) ? IN_PROGRESS_MISSING_COLOUR : IN_PROGRESS_WITH_COMMENTS_COLOUR;
                 }
                 parentItem.css('background-color', bgColor);
