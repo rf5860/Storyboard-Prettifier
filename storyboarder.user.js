@@ -38,4 +38,4 @@ function dataLoaded(d) {
     });
 }
 
-waitForKeyElements('.story-card', dataLoaded, true)
+waitForKeyElements('.story-card', dataLoaded, false)
