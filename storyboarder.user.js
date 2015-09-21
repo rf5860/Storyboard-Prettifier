@@ -29,35 +29,37 @@ function dataLoaded(d) {
         var defectId=$(l).parent().attr('_v1_asset');
         var detailLink=$(l).find('div.title>a').attr("href");
         var tasksLinks = TASKS_URL.replace("{0}", "'"+defectId+"'");
-        var devCompleted = true;
-        $.ajax({
-            url: tasksLink,
-            success: function(data) {
-                for (i=0;i<data.Assets.length;i++) devCompleted = devCompleted && data.Assets[0].Attributes["Status.Name"].value === COMPLETED;
-            },
-            async: false,
-            dataType:'json'
-        });
         $.ajax({
             url: detailLink,
             success: function(data) {
+                var devCompleted = true;
+                $.ajax({
+                    url: tasksLinks,
+                    success: function(data) {
+                        for (i=0;i<data.Assets.length;i++) {
+                            devCompleted = devCompleted && data.Assets[0].Attributes["Status.Name"].value === COMPLETED;
+                        }
+                    },
+                    async: false,
+                    dataType:'json'
+                });
+
                 var releaseNotes = $(data).find(RELEASE_NOTES_LABEL_XPATH).parent().find('.value').text();
                 var status = $(data).find(STATUS_XPATH).parent().find('.value').text();
                 var parentItem = $(l).find('.bottom-content').parent();
                 var bgColor = "";
                 var releaseNotesDone = ( releaseNotes === "" );
                 if (status === DONE || status === ACCEPTED) {
-                    bgColor =  ? COMPLETE_MISSING_COMMENTS : COMPLETE_WITH_COMMENTS_COLOUR;
-               } else if (status === IN_PROGRESS) {
-                   if (devCompleted) {
-                       bgColor = ( releaseNotes === "" ) ? AWAITING_DEPLOY_MISSING_COMMENTS : AWAITING_DEPLOY_WITH_COMMENTS_COLOUR;
-                   } else {
-                       bgColor = ( releaseNotes === "" ) ? IN_PROGRESS_MISSING_COMMENTS : IN_PROGRESS_WITH_COMMENTS_COLOUR;
-                   }
+                    bgColor = releaseNotesDone ? COMPLETE_MISSING_COMMENTS : COMPLETE_WITH_COMMENTS;
+                } else if (status === IN_PROGRESS) {
+                    if (devCompleted) {
+                        bgColor = ( releaseNotes === "" ) ? AWAITING_DEPLOY_MISSING_COMMENTS : AWAITING_DEPLOY_WITH_COMMENTS;
+                    } else {
+                        bgColor = ( releaseNotes === "" ) ? IN_PROGRESS_MISSING_COMMENTS : IN_PROGRESS_WITH_COMMENTS;
+                    }
                 }
                 parentItem.css('background-color', bgColor);
-            },
-            async: false
+            }
         });
     });
 }
