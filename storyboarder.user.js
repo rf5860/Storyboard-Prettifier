@@ -7,6 +7,7 @@
 // @author        rf5860
 // @version       0.4
 // @updateURL     https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
+// @downloadURL   https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // ==/UserScript==
 // Style
 
