@@ -8,19 +8,36 @@
 // @version       0.3
 // ==/UserScript==
 // Style
-var COMPLETE_MISSING_COMMENTS_COLOUR = "#CC8D8D";
-var COMPLETE_WITH_COMMENTS_COLOUR = "#8A99E2";
-var IN_PROGRESS_MISSING_COLOUR = "#E2C78A";
-var IN_PROGRESS_WITH_COMMENTS_COLOUR = "#CCE28A";
+
+var COMPLETE_MISSING_COMMENTS = "#CC8D8D";
+var COMPLETE_WITH_COMMENTS = "#8A99E2";
+var IN_PROGRESS_MISSING_COMMENTS = "#BA58DA";
+var IN_PROGRESS_WITH_COMMENTS = "#C0DA58";
+var AWAITING_DEPLOY_MISSING_COMMENTS = "#E2C78A";
+var AWAITING_DEPLOY_WITH_COMMENTS = "#AAE28A";
 var RELEASE_NOTES_LABEL_XPATH = 'div.expandable-text>label:contains("Release Notes:")';
 var STATUS_XPATH = 'div.what-fields>div.text>label:contains("Status:")';
 var DONE = 'Done';
 var IN_PROGRESS = 'In Progress';
 var ACCEPTED = 'Accepted';
+var COMPLETED = 'Completed';
+var DEV_TASK_TEXT = 'Development';
+var TASKS_URL = "https://www11.v1host.com/VentyxProd/rest-1.v1/Data/Task?sel=Status.Name&find="+DEV_TASK_TEXT+"&where=Parent={0}&Accept=application/json";
 
 function dataLoaded(d) {
     d.each(function(i,l) {
+        var defectId=$(l).parent().attr('_v1_asset');
         var detailLink=$(l).find('div.title>a').attr("href");
+        var tasksLinks = TASKS_URL.replace("{0}", "'"+defectId+"'");
+        var devCompleted = true;
+        $.ajax({
+            url: tasksLink,
+            success: function(data) {
+                for (i=0;i<data.Assets.length;i++) devCompleted = devCompleted && data.Assets[0].Attributes["Status.Name"].value === COMPLETED;
+            },
+            async: false,
+            dataType:'json'
+        });
         $.ajax({
             url: detailLink,
             success: function(data) {
@@ -28,13 +45,19 @@ function dataLoaded(d) {
                 var status = $(data).find(STATUS_XPATH).parent().find('.value').text();
                 var parentItem = $(l).find('.bottom-content').parent();
                 var bgColor = "";
+                var releaseNotesDone = ( releaseNotes === "" );
                 if (status === DONE || status === ACCEPTED) {
-                    bgColor = ( releaseNotes === "" ) ? COMPLETE_MISSING_COMMENTS_COLOUR : COMPLETE_WITH_COMMENTS_COLOUR;
+                    bgColor =  ? COMPLETE_MISSING_COMMENTS : COMPLETE_WITH_COMMENTS_COLOUR;
                } else if (status === IN_PROGRESS) {
-                    bgColor = ( releaseNotes === "" ) ? IN_PROGRESS_MISSING_COLOUR : IN_PROGRESS_WITH_COMMENTS_COLOUR;
+                   if (devCompleted) {
+                       bgColor = ( releaseNotes === "" ) ? AWAITING_DEPLOY_MISSING_COMMENTS : AWAITING_DEPLOY_WITH_COMMENTS_COLOUR;
+                   } else {
+                       bgColor = ( releaseNotes === "" ) ? IN_PROGRESS_MISSING_COMMENTS : IN_PROGRESS_WITH_COMMENTS_COLOUR;
+                   }
                 }
                 parentItem.css('background-color', bgColor);
-            }
+            },
+            async: false
         });
     });
 }
