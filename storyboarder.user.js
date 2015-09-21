@@ -6,7 +6,7 @@
 // @require       https://gist.githubusercontent.com/BrockA/2625891/raw/fd02ec05e3079cdd52cf5892a7ba27b67b6b6131/waitForKeyElements.js
 // @author        rf5860
 // @version       0.4
-// @updateURL     https://github.com/rf5860/Storyboard-Prettifier/edit/master/storyboarder.user.js
+// @updateURL     https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // ==/UserScript==
 // Style
 
