@@ -72,4 +72,4 @@ function dataLoaded(d) {
 }
 
 waitForKeyElements('.story-card', dataLoaded, false);
-waitForKeyElements('.titlebar', function(d) {$('.titlebar').append(COLOUR_KEY);}, false);
+waitForKeyElements('.titlebar', function(d) {$('.titlebar').append(COLOUR_KEY);});
