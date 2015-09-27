@@ -5,7 +5,7 @@
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 // @require       https://gist.githubusercontent.com/BrockA/2625891/raw/fd02ec05e3079cdd52cf5892a7ba27b67b6b6131/waitForKeyElements.js
 // @author        rf5860
-// @version       0.6
+// @version       0.4
 // @updateURL     https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // @downloadURL   https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // ==/UserScript==
@@ -25,13 +25,6 @@ var ACCEPTED = 'Accepted';
 var COMPLETED = 'Completed';
 var DEV_TASK_TEXT = 'Development';
 var TASKS_URL = "https://www11.v1host.com/VentyxProd/rest-1.v1/Data/Task?sel=Status.Name&find="+DEV_TASK_TEXT+"&where=Parent={0}&Accept=application/json";
-var COLOUR_KEY =
-    "<span style=\"border-left: 5em solid; border-left-color: "+COMPLETE_MISSING_COMMENTS+"; padding-left: 0.4em; title=\"COMPLETE_WITHOUT_COMMENTS\">"+"Complete without Comments"+"</span>" +
-    "<span style=\"border-left: 5em solid; border-left-color: "+COMPLETE_WITH_COMMENTS+"; padding-left: 0.4em; title=\"COMPLETE_WITH_COMMENTS\">"+"Complete with Comments"+"</span>" +
-    "<span style=\"border-left: 5em solid; border-left-color: "+IN_PROGRESS_MISSING_COMMENTS+"; padding-left: 0.4em; title=\"IN_PROGRESS_MISSING_COMMENTS\">"+"In Progress Missing Comments"+"</span>" +
-    "<span style=\"border-left: 5em solid; border-left-color: "+IN_PROGRESS_WITH_COMMENTS+"; padding-left: 0.4em; title=\"IN_PROGRESS_WITH_COMMENTS\">"+"In Progress with Comments"+"</span>" +
-    "<span style=\"border-left: 5em solid; border-left-color: "+AWAITING_DEPLOY_MISSING_COMMENTS+"; padding-left: 0.4em; title=\"AWAITING_DEPLOY_MISSING_COMMENTS\">"+"Awaiting deploy missing Comments"+"</span>" +
-    "<span style=\"border-left: 5em solid; border-left-color: "+AWAITING_DEPLOY_WITH_COMMENTS+"; padding-left: 0.4em; title=\"AWAITING_DEPLOY_WITH_COMMENTS\">"+"Awaiting deploy with Comments"+"</spi>";
 
 function dataLoaded(d) {
     d.each(function(i,l) {
@@ -73,5 +66,4 @@ function dataLoaded(d) {
     });
 }
 
-waitForKeyElements('.story-card', dataLoaded, false);
-waitForKeyElements('.titlebar', function(d) {$('.titlebar').append(COLOUR_KEY);});
+waitForKeyElements('.story-card', dataLoaded, false)
