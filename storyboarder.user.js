@@ -5,7 +5,7 @@
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 // @require       https://gist.githubusercontent.com/BrockA/2625891/raw/fd02ec05e3079cdd52cf5892a7ba27b67b6b6131/waitForKeyElements.js
 // @author        rf5860
-// @version       0.6
+// @version       0.7
 // @updateURL     https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // @downloadURL   https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // ==/UserScript==
@@ -82,4 +82,4 @@ function setStoryCardColors(d) {
 
 waitForKeyElements('.story-card', setStoryCardColors, false)
 waitForKeyElements('tr[_v1_type="ChangeSet"]>td:nth-child(2)', addGitHubLinks, false);
-waitForKeyElements('label:contains("SFDCCaseNumber:")', addSFDCLinks, false);
+waitForKeyElements('div.text>label:contains("SFDCCaseNumber:")', addSFDCLinks, false);
