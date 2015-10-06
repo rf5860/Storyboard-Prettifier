@@ -32,16 +32,14 @@ var GITHUB_HTML = '<a href="' + GITHUB_URL + '">{0}</a>';
 function addGitHubLinks(c) {
     c.each(function(i, l) {
         v = $(l);
-        v.html(GITHUB_HTML.replace("{0}", v.text()));
+        v.html(GITHUB_HTML.replace(/\{0\}/g, v.text()));
     });
 }
 
 function addSFDCLinks(s) {
-    s.each(function(i, l) {
-        var targetDiv = $(l).parent().find('div.value');
-        var caseNumber = targetDiv.html();
-        targetDiv.html(GITHUB_HTML.replace("{0}", caseNumber));
-    });
+    var targetDiv = s.parent().find('div.value');
+    var caseNumber = targetDiv.html();
+    targetDiv.html(SFDC_HTML.replace(/\{0\}/g, caseNumber));
 }
 
 function setStoryCardColors(d) {
@@ -84,6 +82,6 @@ function setStoryCardColors(d) {
     });
 }
 
-waitForKeyElements('.story-card', setStoryCardColors, false)
+waitForKeyElements('.story-card', setStoryCardColors, false);
 waitForKeyElements('tr[_v1_type="ChangeSet"]>td:nth-child(2)', addGitHubLinks, false);
 waitForKeyElements('div.text>label:contains("SFDCCaseNumber:")', addSFDCLinks, false);
