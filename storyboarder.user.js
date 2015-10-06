@@ -1,3 +1,4 @@
+
 // ==UserScript==
 // @name          StoryBoarder
 // @description	  Add colour codes to V1 for Release Notes
@@ -5,7 +6,7 @@
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 // @require       https://gist.githubusercontent.com/BrockA/2625891/raw/fd02ec05e3079cdd52cf5892a7ba27b67b6b6131/waitForKeyElements.js
 // @author        rf5860
-// @version       0.4
+// @version       0.5
 // @updateURL     https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // @downloadURL   https://github.com/rf5860/Storyboard-Prettifier/raw/master/storyboarder.user.js
 // ==/UserScript==
@@ -67,3 +68,7 @@ function dataLoaded(d) {
 }
 
 waitForKeyElements('.story-card', dataLoaded, false)
+function changeSetLoaded(c) {c.each(function(i,l) {v=$(l);v.html('<a href="https://github.com/Mincom/ellipse/commit/'+v.text()+'">'+v.text() + "</a>");});}
+waitForKeyElements('tr[_v1_type="ChangeSet"]>td:nth-child(2)', changeSetLoaded, false);
+
+
