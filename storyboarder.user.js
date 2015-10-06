@@ -25,7 +25,7 @@ var COMPLETED = 'Completed';
 var DEV_TASK_TEXT = 'Development';
 var TASKS_URL = "https://www11.v1host.com/VentyxProd/rest-1.v1/Data/Task?sel=Status.Name&find=" + DEV_TASK_TEXT + "&where=Parent={0}&Accept=application/json";
 var SFDC_URL = "http://litsfvm1/sfcaselookup/default.aspx?Case='{0}'";
-var SFDC_HTML = '<a href="' + SFDC_URL + '">{0}</a>');
+var SFDC_HTML = '<a href="' + SFDC_URL + '">{0}</a>';
 var GITHUB_URL = "https://github.com/Mincom/ellipse/commit/{0}";
 var GITHUB_HTML = '<a href="' + GITHUB_URL + '">{0}</a>';
 
